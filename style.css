@@ -1,0 +1,411 @@
+
+/* Общие стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Темный фон */
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #4CAF50; /* Зеленый акцент */
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #4CAF50; /* Зеленый акцент при наведении */
+}
+
+section {
+    padding: 60px 0;
+}
+
+/* Шапка сайта */
+header {
+    background-color: #222222;
+    color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 2px solid #4CAF50; /* Зеленая граница */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Размер логотипа */
+    margin-right: 15px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #4CAF50; /* Зеленый логотип */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+/* Главный раздел (Hero) */
+#hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('hero-background.jpg') no-repeat center center/cover; /* Замените 'hero-background.jpg' на ваше фоновое изображение */
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.hero-content p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+.main-player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.play-pause-btn {
+    background-color: #4CAF50; /* Зеленая кнопка */
+    color: #ffffff; /* Белый значок */
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 2em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); /* Тень для кнопки */
+}
+
+.play-pause-btn:hover {
+    background-color: #45a049; /* Более темный зеленый при наведении */
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+}
+
+.volume-control i {
+    font-size: 1.5em;
+    margin: 0 10px;
+    color: #ffffff;
+}
+
+.volume-control input[type="range"] {
+    width: 100px;
+    cursor: pointer;
+    accent-color: #4CAF50; /* Зеленый цвет ползунка */
+}
+
+#current-track-info {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#track-name {
+    color: #4CAF50; /* Зеленый цвет названия трека */
+}
+
+#artist-name {
+    color: #ffffff; /* Имя исполнителя остается белым */
+}
+
+
+/* Раздел "Сейчас играет" */
+#now-playing {
+    background-color: #222222;
+    text-align: center;
+}
+
+#realtime-track p {
+    font-size: 1.8em;
+    color: #4CAF50; /* Зеленый текст */
+}
+
+/* Раздел: Главные хиты */
+#hits {
+    background-color: #1a1a1a;
+    text-align: center;
+}
+
+.hits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Адаптивная сетка */
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.hit-item {
+    background-color: #222222;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hit-item img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    align-self: center;
+}
+
+.hit-item h3 {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+    color: #4CAF50; /* Зеленый заголовок хита */
+}
+
+.hit-item p {
+    font-size: 1em;
+    margin-bottom: 15px;
+    color: #aaaaaa;
+}
+
+.hit-item audio {
+    width: 100%;
+    margin-top: auto;
+    background-color: #333;
+    border-radius: 5px;
+    accent-color: #4CAF50; /* Зеленый акцент для аудио плеера */
+}
+
+/* Цвета для элементов аудио плеера (может потребоваться более глубокая стилизация через JS) */
+.hit-item audio::-webkit-media-controls-play-button,
+.hit-item audio::-webkit-media-controls-pause-button {
+    color: #4CAF50 !important; /* Зеленый значок play/pause */
+}
+
+.hit-item audio::-webkit-media-controls-timeline,
+.hit-item audio::-webkit-media-controls-volume-slider {
+    accent-color: #4CAF50 !important; /* Зеленый акцент для ползунков */
+}
+
+
+/* Раздел "Расписание" */
+#schedule table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+#schedule th, #schedule td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+#schedule th {
+    background-color: #333333;
+    font-size: 1.2em;
+    color: #4CAF50; /* Зеленый заголовок таблицы */
+}
+
+#schedule tbody tr:hover {
+    background-color: #333333;
+}
+
+/* Раздел "О нас" */
+#about {
+    background-color: #1a1a1a;
+    text-align: center;
+}
+
+#about p {
+    max-width: 800px;
+    margin: 20px auto;
+    font-size: 1.1em;
+}
+
+/* Раздел "Контакты" */
+#contact {
+    background-color: #222222;
+    text-align: center;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+}
+
+.contact-info p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.contact-info i {
+    color: #4CAF50; /* Зеленая иконка */
+    margin-right: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a {
+    font-size: 2em;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #4CAF50;
+}
+
+/* Подвал сайта */
+footer {
+    background-color: #1a1a1a;
+    color: #aaaaaa;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #333;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    #hero {
+        height: auto;
+        padding: 60px 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+
+    .hero-content p {
+        font-size: 1.2em;
+    }
+
+    .main-player-controls .play-pause-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+    }
+
+    .main-player-controls .volume-control input[type="range"] {
+        width: 80px;
+    }
+
+    .hits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #schedule table, #schedule th, #schedule td {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 2em;
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+    }
+
+    .main-player-controls .play-pause-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+    }
+
+    .main-player-controls .volume-control i {
+        font-size: 1.2em;
+    }
+
+    .main-player-controls .volume-control input[type="range"] {
+        width: 60px;
+    }
+}

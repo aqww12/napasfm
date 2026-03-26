@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НАПАС ФМ - Слушай любимую музыку</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logos/logo1.png" alt="Логотип НАПАС ФМ">
+                <h1>НАПАС ФМ</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#now-playing">Сейчас играет</a></li>
+                    <li><a href="#schedule">Расписание</a></li>
+                    <li><a href="#hits">Главные хиты</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Твоя волна позитива!</h2>
+                    <p>Самая актуальная музыка и свежие хиты каждую минуту.</p>
+                    <div class="main-player-controls">
+                        <button class="play-pause-btn"><i class="fas fa-play"></i></button>
+                        <span class="volume-control">
+                            <i class="fas fa-volume-down"></i>
+                            <input type="range" min="0" max="100" value="80">
+                            <i class="fas fa-volume-up"></i>
+                        </span>
+                    </div>
+                    <div id="current-track-info">
+                        <!-- Отображение текущего трека будет генерироваться JS -->
+                        <p>Сейчас играет: <span id="track-name"></span> - <span id="artist-name"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="now-playing">
+            <div class="container">
+                <h2>Что сейчас играет?</h2>
+                <div id="realtime-track">
+                    <p>Нажмите "Play" для начала прослушивания.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел: Главные хиты -->
+        <section id="hits">
+            <div class="container">
+                <h2>Главные хиты</h2>
+                <div class="hits-grid">
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 1">
+                        <h3>Ганджубас</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/ганджубас.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 2">
+                        <h3>Утро без хапки</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/Утро без хапки.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 3">
+                        <h3>Барыга</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/барыга.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 4">
+                        <h3>Мусарской шоп</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/Мусарской шоп.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 4">
+                        <h3>Асаф колпак</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/Асаф колпак.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 4">
+                        <h3>Напасик</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/Напасик.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo2.png" alt="Обложка 4">
+                        <h3>KZ BABY</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/kz baby.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo3.png" alt="Обложка 4">
+                        <h3>АМ АМ</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/ам ам.mp3"></audio>
+                    </div>
+                    <div class="hit-item">
+                        <img src="logos/logo3.png" alt="Обложка 4">
+                        <h3>ДА ДА НЕТ НЕТ</h3>
+                        <p>НАПАС ФМ ОРИДЖИНАЛ</p>
+                        <audio controls src="music/да да нет нет.mp3"></audio>
+                    </div>
+                    <!-- Добавьте больше хитов по необходимости -->
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <div class="container">
+                <h2>Наше расписание</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Программа</th>
+                            <th>Ведущий</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>00:00 - 24:00</td>
+                            <td>Ахуенные треки</td>
+                            <td>НАПАС ФМ 911</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>О НАПАС ФМ</h2>
+                <p>НАПАС ФМ - это больше, чем просто радио. Это место, где собираются единомышленники, любители качественной музыки и позитивного настроения. Мы вещаем 24/7, предлагая вам самые свежие хиты, проверенные временем треки и авторские программы.</p>
+                <p>Наша команда профессионалов постоянно работает над созданием уникального контента, чтобы каждый день с НАПАС ФМ становился ярче и интереснее.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Свяжитесь с нами</h2>
+                <div class="contact-info">
+                    <p><i class="fas f
+a-phone"></i> Телефон: +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> Email: info@napasfm.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Адрес: ул. Музыкальная, 1, Город мечты</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
+                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 НАПАС ФМ. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
