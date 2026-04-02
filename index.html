@@ -34,13 +34,23 @@
                     <h2>Твоя волна позитива!</h2>
                     <p>Самая актуальная музыка и свежие хиты каждую минуту.</p>
                     <div class="main-player-controls">
-                        <button class="play-pause-btn"><i class="fas fa-play"></i></button>
-                        <span class="volume-control">
-                            <i class="fas fa-volume-down"></i>
-                            <input type="range" min="0" max="100" value="80">
-                            <i class="fas fa-volume-up"></i>
-                        </span>
-                    </div>
+    <!-- Кнопка Предыдущий трек -->
+    <button class="prev-btn"><i class="fas fa-step-backward"></i></button>
+    
+    <!-- Кнопка Play/Pause -->
+    <button class="play-pause-btn"><i class="fas fa-play"></i></button>
+    
+    <!-- Кнопка Следующий трек -->
+    <button class="next-btn"><i class="fas fa-step-forward"></i></button>
+
+    <span class="volume-control">
+        <i class="fas fa-volume-down"></i>
+        <input type="range" min="0" max="100" value="80">
+        <i class="fas fa-volume-up"></i>
+    </span>
+</div>
+
+
                     <div id="current-track-info">
                         <!-- Отображение текущего трека будет генерироваться JS -->
                         <p>Сейчас играет: <span id="track-name"></span> - <span id="artist-name"></span></p>
@@ -124,7 +134,7 @@
                         <audio controls src="music/murino never sleeps.mp3"></audio>
                     </div>
                     <div class="hit-item">
-                        <img src="logos/logo3.png" alt="Обложка 4">
+                        <img src="logos/logo2.png" alt="Обложка 4">
                         <h3>ЭТО БЫЛО НА ГИДРЕ</h3>
                         <p>НАПАС ФМ ОРИДЖИНАЛ</p>
                         <audio controls src="music/Это было на гидре.mp3"></audio>

@@ -1,15 +1,16 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const mainPlayPauseBtn = document.querySelector('.main-player-controls .play-pause-btn');
     const mainPlayIcon = mainPlayPauseBtn.querySelector('i');
-    const audioPlayer = new Audio(); // Основной плеер для случайного трека
+    const prevBtn = document.querySelector('.main-player-controls .prev-btn');
+    const nextBtn = document.querySelector('.main-player-controls .next-btn');
+    const volumeRange = document.querySelector('.main-player-controls input[type="range"]');
+
+    const audioPlayer = new Audio();
     const trackNameElement = document.getElementById('track-name');
     const artistNameElement = document.getElementById('artist-name');
     const realtimeTrackElement = document.getElementById('realtime-track');
 
-    // --- Список аудиофайлов и их метаданные ---
-    // ВНИМАНИЕ: Вам нужно будет вручную заполнить эти данные
-    // или использовать более продвинутый метод (например, JSON файл),
-    // если у вас много треков.
     const musicFiles = [
         { src: 'music/ганджубас.mp3', title: 'Ганджубас', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         { src: 'music/Утро без хапки.mp3', title: 'Утро без хапки', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
@@ -22,91 +23,135 @@ document.addEventListener('DOMContentLoaded', () => {
         { src: 'music/да да нет нет.mp3', title: 'ДА ДА НЕТ НЕТ', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         { src: 'music/murino never sleeps.mp3', title: 'MURINO NEVER SLEEPS', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         { src: 'music/Это было на гидре.mp3', title: 'ЭТО БЫЛО НА ГИДРЕ', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
-        // Добавьте сюда другие ваши треки в формате { src: 'путь/к/файлу.mp3', title: 'Название', artist: 'Исполнитель' }
     ];
 
-    // --- Функция для установки случайного трека ---
-    function setRandomTrack() {
-        if (musicFiles.length === 0) {
-            realtimeTrackElement.innerHTML = '<p style="color: red;">Список треков пуст!</p>';
-            return;
-        }
+    let currentIndex = -1;
 
-        // Выбираем случайный индекс из массива
-        const randomIndex = Math.floor(Math.random() * musicFiles.length);
-        const selectedTrack = musicFiles[randomIndex];
-
-        audioPlayer.src = selectedTrack.src;
-        trackNameElement.textContent = selectedTrack.title;
-        artistNameElement.textContent = selectedTrack.artist;
-        realtimeTrackElement.innerHTML = `<p>Сейчас играет: <strong>${selectedTrack.title}</strong> - ${selectedTrack.artist}</p>`;
+    function clampIndex(i) {
+        const n = musicFiles.length;
+        if (n === 0) return -1;
+        return ((i % n) + n) % n;
     }
 
-    // --- События для основного плеера ---
-    mainPlayPauseBtn.addEventListener('click', () => {
-        if (audioPlayer.paused) {
-            // Устанавливаем случайный трек, если плеер еще не был настроен
-            if (!audioPlayer.src || audioPlayer.ended) {
-                setRandomTrack();
-            }
-
-            audioPlayer.play()
-                .then(() => {
-                    mainPlayIcon.classList.remove('fa-play');
-                    mainPlayIcon.classList.add('fa-pause');
-                })
-                .catch(error => {
-                    console.error("Ошибка воспроизведения:", error);
-                    realtimeTrackElement.innerHTML = '<p style="color: red;">Не удалось начать воспроизведение. Проверьте файл трека.</p>';
-                });
+    function updateUI(isPlaying) {
+        if (isPlaying) {
+            mainPlayIcon.classList.remove('fa-play');
+            mainPlayIcon.classList.add('fa-pause');
         } else {
-            audioPlayer.pause();
             mainPlayIcon.classList.remove('fa-pause');
             mainPlayIcon.classList.add('fa-play');
         }
-    });
+    }
 
-    // --- Переход к следующему треку при окончании текущего ---
-    audioPlayer.addEventListener('ended', () => {
-        mainPlayIcon.classList.remove('fa-pause');
-        mainPlayIcon.classList.add('fa-play');
-        setRandomTrack(); // Автоматически ставим следующий случайный трек
-        // Если плеер был в режиме воспроизведения, начинаем играть новый трек
-        if (!audioPlayer.paused) {
-             audioPlayer.play().catch(error => {
-                 console.error("Ошибка при авто-воспроизведении следующего трека:", error);
-             });
+    function renderTrackInfo(track) {
+        if (!track) {
+            trackNameElement.textContent = '';
+            artistNameElement.textContent = '';
+            realtimeTrackElement.innerHTML = '<p>Нажмите "Play" для начала прослушивания.</p>';
+            return;
+        }
+        trackNameElement.textContent = track.title;
+        artistNameElement.textContent = track.artist;
+        realtimeTrackElement.innerHTML = `<p>Сейчас играет: <strong>${track.title}</strong> - ${track.artist}</p>`;
+    }
+
+    function setTrackByIndex(index) {
+        if (musicFiles.length === 0) {
+            realtimeTrackElement.innerHTML = '<p style="color: red;">Список треков пуст!</p>';
+            currentIndex = -1;
+            audioPlayer.src = '';
+            renderTrackInfo(null);
+            return;
+        }
+
+        const idx = clampIndex(index);
+        const selected = musicFiles[idx];
+        currentIndex = idx;
+        audioPlayer.src = selected.src;
+        renderTrackInfo(selected);
+    }
+
+    // Выбирает случайный трек; если треков > 1, старается не выбирать текущий
+    function setRandomTrack() {
+        const n = musicFiles.length;
+        if (n === 0) return;
+        if (n === 1) {
+            setTrackByIndex(0);
+            return;
+        }
+        let r;
+        do {
+            r = Math.floor(Math.random() * n);
+        } while (r === currentIndex);
+        setTrackByIndex(r);
+    }
+
+    mainPlayPauseBtn.addEventListener('click', () => {
+        if (audioPlayer.paused) {
+            if (!audioPlayer.src) {
+                // Если хотите, чтобы при первом нажатии Play выбирался случайный трек,
+                // замените setTrackByIndex(0) на setRandomTrack()
+                setTrackByIndex(0);
+            }
+            audioPlayer.play()
+                .then(() => updateUI(true))
+                .catch(err => {
+                    console.error('Ошибка воспроизведения:', err);
+                    realtimeTrackElement.innerHTML = '<p style="color: red;">Ошибка воспроизведения файла.</p>';
+                    updateUI(false);
+                });
+        } else {
+            audioPlayer.pause();
+            updateUI(false);
         }
     });
 
-    // --- Управление громкостью основного плеера ---
-    const mainVolumeSlider = document.querySelector('.main-player-controls .volume-control input[type="range"]');
-    mainVolumeSlider.addEventListener('input', (e) => {
-        audioPlayer.volume = e.target.value / 100;
-    });
-    audioPlayer.volume = mainVolumeSlider.value / 100; // Устанавливаем начальную громкость
-
-    // --- Обработка плееров для Главных Хитов ---
-    const hitPlayers = document.querySelectorAll('.hit-item audio');
-
-    hitPlayers.forEach(player => {
-        player.addEventListener('play', () => {
-            // Когда начинает играть один из плееров хитов, останавливаем главный плеер (случайный трек)
-            if (!audioPlayer.paused) {
-                audioPlayer.pause();
-                mainPlayIcon.classList.remove('fa-pause');
-                mainPlayIcon.classList.add('fa-play');
-            }
-
-            // Останавливаем другие плееры хитов, чтобы играл только один
-            hitPlayers.forEach(otherPlayer => {
-                if (otherPlayer !== player && !otherPlayer.paused) {
-                    otherPlayer.pause();
-                }
-            });
+    prevBtn && prevBtn.addEventListener('click', () => {
+        if (musicFiles.length === 0) return;
+        if (currentIndex === -1) {
+            setTrackByIndex(musicFiles.length - 1);
+        } else {
+            setTrackByIndex(currentIndex - 1);
+        }
+        audioPlayer.play().then(() => updateUI(true)).catch(err => {
+            console.error('Ошибка воспроизведения:', err);
+            updateUI(false);
         });
     });
 
-    // При загрузке страницы, устанавливаем первый случайный трек, но не запускаем его
-    setRandomTrack();
+    // next теперь случайный
+    nextBtn && nextBtn.addEventListener('click', () => {
+        if (musicFiles.length === 0) return;
+        setRandomTrack();
+        audioPlayer.play().then(() => updateUI(true)).catch(err => {
+            console.error('Ошибка воспроизведения:', err);
+            updateUI(false);
+        });
+    });
+
+    // По окончанию трека — выбрать случайный следующий
+    audioPlayer.addEventListener('ended', () => {
+        if (musicFiles.length === 0) return;
+        setRandomTrack();
+        audioPlayer.play().then(() => updateUI(true)).catch(err => {
+            console.error('Ошибка при автопереходе:', err);
+            updateUI(false);
+        });
+    });
+
+    audioPlayer.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        realtimeTrackElement.innerHTML = '<p style="color: red;">Ошибка загрузки/воспроизведения трека.</p>';
+        updateUI(false);
+    });
+
+    if (volumeRange) {
+        audioPlayer.volume = (volumeRange.value || 80) / 100;
+        volumeRange.addEventListener('input', (e) => {
+            const v = Number(e.target.value);
+            audioPlayer.volume = Math.max(0, Math.min(1, v / 100));
+        });
+    }
+
+    renderTrackInfo(null);
 });
