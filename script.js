@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { src: 'music/kz baby.mp3', title: 'KZ BABY', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         { src: 'music/ам ам.mp3', title: 'АМ АМ', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         { src: 'music/да да нет нет.mp3', title: 'ДА ДА НЕТ НЕТ', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
+        { src: 'music/murino never sleeps.mp3', title: 'MURINO NEVER SLEEPS', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
+        { src: 'music/Это было на гидре.mp3', title: 'ЭТО БЫЛО НА ГИДРЕ', artist: 'НАПАС ФМ ОРИДЖИНАЛ' },
         // Добавьте сюда другие ваши треки в формате { src: 'путь/к/файлу.mp3', title: 'Название', artist: 'Исполнитель' }
     ];
 
